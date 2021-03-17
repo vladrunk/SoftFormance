@@ -2,21 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Ownable(models.Model):
-    """
-    Абстрактная модель юзера владельца поста
-    """
-    user = models.ForeignKey(
-        to='auth.User',
-        on_delete=models.CASCADE,
-        verbose_name="Author",
-        related_name="%(class)ss",
-    )
-
-    class Meta:
-        abstract = True
-
-
 class RegisteredUser(models.Model):
     """
     Зарегестрированный юзер
@@ -36,6 +21,21 @@ class RegisteredUser(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Ownable(models.Model):
+    """
+    Абстрактная модель юзера владельца поста
+    """
+    user = models.ForeignKey(
+        to='auth.User',
+        on_delete=models.CASCADE,
+        verbose_name="Author",
+        related_name="%(class)ss",
+    )
+
+    class Meta:
+        abstract = True
 
 
 class FeedItem(Ownable):
