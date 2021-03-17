@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-
+from rest_framework.permissions import IsAuthenticated
 from .serializers import RegisteredUserSerializers, FeedItemSerializers
 from feed.models import RegisteredUser, FeedItem
 
@@ -16,6 +16,7 @@ class FeedAllViewSet(viewsets.ModelViewSet):
 
 class FeedViewSet(viewsets.ModelViewSet):
     serializer_class = FeedItemSerializers
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return FeedItem.objects.filter(user=self.request.user)
@@ -23,6 +24,7 @@ class FeedViewSet(viewsets.ModelViewSet):
 
 class FeedSubsViewSet(viewsets.ModelViewSet):
     serializer_class = FeedItemSerializers
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         users = [RegisteredUser.objects.get(user=self.request.user)]
