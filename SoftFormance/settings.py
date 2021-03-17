@@ -53,7 +53,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SoftFormance.wsgi.application'
 
-DATABASES = {'default': dj_database_url.config(conn_max_age=600, ssl_require=True)}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'SoftFormance',
+            'USER': 'godbd',
+            'PASSWORD': 'Answer42!',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+else:
+    DATABASES = {'default': dj_database_url.config(conn_max_age=600, ssl_require=True)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
