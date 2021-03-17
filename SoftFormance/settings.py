@@ -1,7 +1,6 @@
 from pathlib import Path
 from os import getenv
-import dj_database_url
-
+import dj_database_url, django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,3 +75,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())
